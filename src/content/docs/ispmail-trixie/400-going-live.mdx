@@ -1,0 +1,38 @@
+---
+title: Going live
+lastUpdated: 2025-11-01
+slug: ispmail-trxie/going-live
+sidebar:
+  order: 400
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+Before you take your new mail server into production, please replace the dummy database passwords by some actual random
+passwords:
+
+```sh title="Run this on your server"
+# Create two random passwords
+PW_MAILADMIN=$(pwgen -s 32 1)
+PW_MAILSERVER=$(pwgen -s 32 1)
+
+# Replace the dummy passwords
+sed -i "s|MAILADMIN-PASSWORD-HERE|$PW_MAILADMIN|g" /etc/roundcube/plugins/password/config.inc.php
+
+sed -i "s|MAILSERVER-PASSWORD-HERE|$PW_MAILSERVER|g" \
+    /etc/dovecot/conf.d/99-ispmail-sql.conf \
+    /etc/postfix/mariadb-virtual-mailbox-maps.cf \
+    /etc/postfix/mariadb-virtual-mailbox-domains.cf \
+    /etc/postfix/mariadb-virtual-alias-maps.cf \
+    /etc/postfix/mariadb-email2email.cf
+
+# Restart the services
+systemctl restart postfix dovecot
+
+# Print the passwords for us to write down
+echo "mailadmin password:  $PW_MAILADMIN"
+echo "mailserver password: $PW_MAILSERVER"
+```
+
+Now you are ready to go live. Congratulations on making it this far. And please drop a comment at the bottom if you want
+to proudly report that you have your new server up and running.
