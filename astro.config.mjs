@@ -18,7 +18,7 @@ export default defineConfig({
       lastUpdated: true,
       title: "ISPmail Guide",
       social: [
-        { icon: "github", label: "GitHub", href: "https://github.com/Signum/workaround-astro-starlight" },
+        { icon: "github", label: "GitHub", href: "https://github.com/Signum/ispmail-workaround-org/" },
         { icon: "matrix", label: "Matrix", href: "https://riot.im/app/#/room/#ispmail:matrix.org" },
         {
           icon: "rss",
@@ -34,13 +34,8 @@ export default defineConfig({
       sidebar: [
         {
           label: "ISPmail for Debian 13",
-          // slug: "ispmail-bookworm",
+          // slug: "ispmail-trixie",
           autogenerate: { directory: "ispmail-trixie" },
-        },
-        {
-          label: "ISPmail for Debian 12",
-          // slug: "ispmail-bookworm",
-          autogenerate: { directory: "ispmail-bookworm" },
         },
         {
           label: "Misc articles",
