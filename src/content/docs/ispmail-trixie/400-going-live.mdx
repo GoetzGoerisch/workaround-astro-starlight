@@ -29,6 +29,13 @@ sed -i "s|MAILSERVER-PASSWORD-HERE|$PW_MAILSERVER|g" \
 # Restart the services
 systemctl restart postfix dovecot
 
+# Update MariaDB user passwords
+mariadb <<EOF
+ALTER USER 'mailadmin'@'localhost' IDENTIFIED BY '${PW_MAILADMIN}';
+ALTER USER 'mailserver'@'127.0.0.1' IDENTIFIED BY '${PW_MAILSERVER}';
+FLUSH PRIVILEGES;
+EOF
+
 # Print the passwords for us to write down
 echo "mailadmin password:  $PW_MAILADMIN"
 echo "mailserver password: $PW_MAILSERVER"
