@@ -3,7 +3,7 @@ name: Build Astro and deploy dist
 on:
   push:
     branches:
-      - stage  # or your default branch
+      - prod  # or your default branch
   workflow_dispatch:
 
 permissions:
@@ -12,7 +12,7 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: stage
+    environment: prod
 
     steps:
       - name: Checkout code
@@ -29,7 +29,7 @@ jobs:
       - name: Build Astro project
         run: npm run build
 
-      - name: Deploy dist to dist-stage
+      - name: Deploy dist to dist-prod
         run: |
           # Configure Git
           git config user.name "github-actions[bot]"
@@ -46,7 +46,7 @@ jobs:
 
           git branch
           git commit -m "Update dist/ [skip ci]"
-          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/Signum/workaround-astro-starlight.git temp-build:dist-stage --force
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/Signum/ispmail-workaround-org.git temp-build:dist-prod --force
 
       - name: Trigger deployment webhook
         run: |
