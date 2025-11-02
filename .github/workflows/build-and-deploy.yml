@@ -31,7 +31,7 @@ jobs:
       - name: Build Astro project
         run: npm run build
 
-      - name: Deploy dist to dist-${{ env.DIST_BRANCH }}
+      - name: Deploy dist to dist-${{ github.ref_name }}
         run: |
           # Configure Git
           git config user.name "github-actions[bot]"
@@ -48,7 +48,7 @@ jobs:
 
           git branch
           git commit -m "Update dist/ [skip ci]"
-          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} temp-build:${{ env.DIST_BRANCH }} --force
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} temp-build:dist-${{ github.ref_name }} --force
 
       - name: Trigger deployment webhook
         run: |
