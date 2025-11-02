@@ -71,7 +71,7 @@ mysqldump mailserver > mailserver.sql
 Copy that file to the new server (using *scp*) and import it there:
 
 ```
-mysql mailserver < mailserver.sql
+mariadb mailserver < mailserver.sql
 ```
 
 Obviously any database changes on the old server from now on will have to be done on the new server as well until the
@@ -89,7 +89,7 @@ mysqldump roundcube > roundcube.sql
 Copy that file to the new server and import it:
 
 ```
-mysql roundcube < roundcube.sql
+mariadb roundcube < roundcube.sql
 ```
 
 One caveat though. To distinguish multiple mail servers Roundcube stores the server’s name in the mail_host column of
