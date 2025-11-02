@@ -65,7 +65,7 @@ You need to copy the database that contains the control data about your email do
 (Bookworm) server as root and back up the *mailserver* database. That is as easy as running…
 
 ```
-mysqldump mailserver > mailserver.sql
+mariadb-dump mailserver > mailserver.sql
 ```
 
 Copy that file to the new server (using *scp*) and import it there:
@@ -83,7 +83,7 @@ If your users are using Roundcube as a webmail interface then you should migrate
 Dump the SQL from the old server:
 
 ```
-mysqldump roundcube > roundcube.sql
+mariadb-dump roundcube > roundcube.sql
 ```
 
 Copy that file to the new server and import it:
@@ -109,7 +109,7 @@ Details are found in the rspamd chapter.
 
 (**Hot** means: copy the files why they are still in use and potentially change while you do that.) Fortunately Dovecot
 uses the maildir format that stores emails as plain files on disk. Login to the new (Trixie) server and use *rsync* to
-copy over the mails from the old (Bullseye) mail server:
+copy over the mails from the old (Bookworm) mail server:
 
 ```
 rsync -va oldserver:/var/vmail/ /var/vmail/
@@ -117,7 +117,7 @@ rsync -va oldserver:/var/vmail/ /var/vmail/
 
 (Note the trailing slashes. Type them exactly as shown above or your files will end up in wrong places.)
 
-There is no need to shut down Dovecot on your production Bullseye server. Copying the files while Dovecot is running
+There is no need to shut down Dovecot on your production Bookworm server. Copying the files while Dovecot is running
 will not break anything. This is called a “hot copy". It may not be consistent but it will save time during the final
 synchronization.
 
