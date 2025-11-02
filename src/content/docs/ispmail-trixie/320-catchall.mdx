@@ -52,7 +52,7 @@ that. For that “john-to-himself” mapping you need to create another “.cf�
 
 ```sh title="Run this on your server"
 # Create the john-to-himself mapping
-cat > /etc/postfix/mysql-email2email.cf << EOF
+cat > /etc/postfix/mariadb-email2email.cf << EOF
 user = mailserver
 password = MAILSERVER-PASSWORD-HERE
 hosts = 127.0.0.1
@@ -61,18 +61,18 @@ query = SELECT email FROM virtual_users WHERE email='%s'
 EOF
 
 # Fix the permissions of that file
-chgrp postfix /etc/postfix/mysql-*.cf
-chmod u=rw,g=r,o= /etc/postfix/mysql-*.cf
+chgrp postfix /etc/postfix/mariadb-*.cf
+chmod u=rw,g=r,o= /etc/postfix/mariadb-*.cf
 
 # Add the new mapping to the virtual_alias_maps
 # (The order is not important. Postfix will check all mapping files.)
-postconf virtual_alias_maps=mysql:/etc/postfix/mysql-virtual-alias-maps.cf,mysql:/etc/postfix/mysql-email2email.cf
+postconf virtual_alias_maps=mysql:/etc/postfix/mariadb-virtual-alias-maps.cf,mysql:/etc/postfix/mariadb-email2email.cf
 ```
 
 Check that you get John’s email address back when you ask Postfix if there are any aliases for him:
 
 ```sh title="Run this on your server"
-postmap -q john@example.org mysql:/etc/postfix/mysql-email2email.cf
+postmap -q john@example.org mysql:/etc/postfix/mariadb-email2email.cf
 ```
 
 The result should be the same address:
