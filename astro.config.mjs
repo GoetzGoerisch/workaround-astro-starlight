@@ -29,6 +29,7 @@ export default defineConfig({
       // https://expressive-code.com/key-features/word-wrap/#configuration
       components: {
         Footer: "./src/components/Footer.astro",
+        Banner: "./src/components/Banner.astro",
       },
       customCss: ["./src/styles/custom.css"],
       sidebar: [
@@ -36,6 +37,11 @@ export default defineConfig({
           label: "ISPmail for Debian 13",
           // slug: "ispmail-trixie",
           autogenerate: { directory: "ispmail-trixie" },
+        },
+        {
+          label: "ISPmail for Debian 12",
+          // slug: "ispmail-bookworm",
+          autogenerate: { directory: "ispmail-bookworm" },
         },
         {
           label: "Misc articles",
