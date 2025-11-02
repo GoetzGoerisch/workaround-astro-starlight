@@ -3,16 +3,18 @@ name: Build Astro and deploy dist
 on:
   push:
     branches:
-      - stage  # or your default branch
+      - stage
+      - prod
   workflow_dispatch:
 
 permissions:
-  contents: write   # 👈 This is required for pushing branches
+  contents: write # 👈 This is required for pushing branches
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: stage
+    # Dynamically set environment name based on branch
+    environment: ${{ github.ref_name }}
 
     steps:
       - name: Checkout code
@@ -21,7 +23,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22' # match your project
+          node-version: "22" # match your project
 
       - name: Install dependencies
         run: npm ci
@@ -29,24 +31,24 @@ jobs:
       - name: Build Astro project
         run: npm run build
 
-      - name: Deploy dist to dist-stage
+      - name: Deploy dist to dist-${{ env.DIST_BRANCH }}
         run: |
           # Configure Git
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-        
+
           # Create temporary branch
           git checkout --orphan temp-build
 
           # Clean it
           git rm -rf .
-        
+
           # Commit and force push
           git add dist
 
           git branch
           git commit -m "Update dist/ [skip ci]"
-          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/Signum/workaround-astro-starlight.git temp-build:dist-stage --force
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} temp-build:${{ env.DIST_BRANCH }} --force
 
       - name: Trigger deployment webhook
         run: |
@@ -54,4 +56,3 @@ jobs:
         env:
           DEPLOY_WEBHOOK: ${{ secrets.COOLIFY_DEPLOY_WEBHOOK }}
           DEPLOY_TOKEN: ${{ secrets.COOLIFY_DEPLOY_TOKEN }}
-
