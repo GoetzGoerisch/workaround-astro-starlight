@@ -15,7 +15,8 @@ export default defineConfig({
           tag: "script",
           attrs: {
             src: "https://rybbit.workaround.org/api/script.js",
-            "data-site": "1",
+            "data-site-id": "1",
+            async: true,
             defer: true,
           },
         },
