@@ -42,7 +42,7 @@ for our purpose.
 
 The `/etc/dovecot/conf.d/10-auth.conf` file is dealing with authentication. At the end of this file you will find a list
 of authentication backends that Dovecot ships with. By default it will use _system users_ (those from /etc/passwd). But
-we want to use the MariaDB database backend. Please comment all all include statements:
+we want to use the MariaDB database backend. Please comment out all include statements:
 
 ```text title="Edit your /etc/dovecot/conf.d/10-auth.conf"
 #!include auth-system.conf.ext
