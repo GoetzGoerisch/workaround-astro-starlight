@@ -29,6 +29,7 @@ other.
 First we need to add a UNIX socket where Dovecot listens for incoming LMTP connections:
 
 ```sh title="Run this on your server"
+# Add an LMTP listening socket in Dovecot
 cat > /etc/dovecot/conf.d/99-ispmail-lmtp-listener.conf << EOF
 service lmtp {
   # Used internally by Dovecot
@@ -43,6 +44,9 @@ service lmtp {
   }
 }
 EOF
+
+# Restart Dovecot
+systemctl restart dovecot
 ```
 
 The first `unix_listener lmtp` is just used internally by Dovecot and does not concern us. The second part is what you
