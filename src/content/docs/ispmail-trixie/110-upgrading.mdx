@@ -103,7 +103,15 @@ UPDATE users SET mail_host='new.mail.server';
 ## Migrate rspamd spam training data
 
 If you have been using rspamd with the Redis backend then copy over the Redis database from your previous server.
-Details are found in the rspamd chapter.
+
+Stop rspamd on both the old and the new server. Then:
+
+```sh
+rsync -va oldserver:/var/lib/redis/ /var/lib/redis/
+```
+
+Once the redis database is started again on the new server, `rspamc stat` should show you that the training data is
+found.
 
 ## Migrate the Maildirs hot
 
@@ -129,9 +137,10 @@ need to copy emails from another server where you only have IMAP access but cann
 
 Copy over everything in /etc/letsencrypt and /var/lib/rspamd/dkim from your old to the new server.
 
-```
-rsync -va oldserver:/etc/letsencrypt/ /etc/letsencrypt/
+```sh
+rsync -va oldserver:/etc/letsencrypt/archive/ /etc/letsencrypt/archive/
 rsync -va oldserver:/var/lib/rspamd/dkim/ /var/lib/rspamd/dkim/
+rsync -v oldserver:/etc/rspamd/dkim_selectors.map /etc/rspamd
 ```
 
 ## Downtime
@@ -144,7 +153,7 @@ You told your users about the downtime, right? The time has come? Okay. Shut dow
 copied consistently.) Let’s synchronize again. *rsync* will only copy those files that have changed which makes it much
 faster than the first sync. On your new server run:
 
-```
+```sh
 rsync -va --delete oldserver:/var/vmail/ /var/vmail/
 ```
 
@@ -177,3 +186,13 @@ postconf soft_bounce=no
 ## Shut down the old server
 
 If possible do a final backup of the old server. If users are not complaining then dismiss the old system after a week.
+
+## Unsolved issues
+
+You may see error messages like:
+
+```
+Error: sieve: binary /var/vmail/example.org/user/.dovecot.svbin: read: binary stored with different major version 2.0 (!= 3.0; automatically fixed when re-compiled)
+```
+
+You may need to run `sievec` on those files.
