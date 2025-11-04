@@ -77,18 +77,32 @@ mariadb mailserver < mailserver.sql
 Obviously any database changes on the old server from now on will have to be done on the new server as well until the
 migration is done.
 
+## Weak password schemes
+
+Please check if any of your users have hashed passwords that are considered
+[weak](https://doc.dovecot.org/2.4.2/core/config/auth/schemes.html) by Dovecot. Those passwords using a `PLAIN-MD5`
+scheme are not accepted by Dovecot by default. But you can enable them again using:
+
+```sh
+cat > 99-ispmail-weak-schemes.conf << EOF
+auth_allow_weak_schemes = yes
+EOF
+```
+
+Your users should change their passwords using Roundcube. That way a new hash with a more secure schema is created.
+
 ## Roundcube contacts
 
 If your users are using Roundcube as a webmail interface then you should migrate their data like their contact lists.
 Dump the SQL from the old server:
 
-```
+```sh
 mariadb-dump roundcube > roundcube.sql
 ```
 
 Copy that file to the new server and import it:
 
-```
+```sh
 mariadb roundcube < roundcube.sql
 ```
 
@@ -187,7 +201,7 @@ postconf soft_bounce=no
 
 If possible do a final backup of the old server. If users are not complaining then dismiss the old system after a week.
 
-## Unsolved issues
+## Further issues
 
 You may see error messages like:
 
