@@ -13,7 +13,7 @@
         <mxCell id="gQG6ldMYRfHswNwDJcwK-17" value="" style="rounded=1;whiteSpace=wrap;html=1;arcSize=5;verticalAlign=bottom;fontSize=16;fontColor=#000000;" parent="1" vertex="1">
           <mxGeometry x="80" y="640" width="800" height="500" as="geometry" />
         </mxCell>
-        <mxCell id="gQG6ldMYRfHswNwDJcwK-24" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6c8ebf;strokeWidth=3;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=16;fontColor=#000000;labelBackgroundColor=none;endArrow=classic;fillColor=#dae8fc;fontStyle=0;" parent="1" source="gQG6ldMYRfHswNwDJcwK-65" target="gQG6ldMYRfHswNwDJcwK-22" edge="1">
+        <mxCell id="gQG6ldMYRfHswNwDJcwK-24" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=default;strokeWidth=3;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=16;fontColor=default;labelBackgroundColor=default;endArrow=classic;fillColor=#dae8fc;fontStyle=0;" parent="1" source="gQG6ldMYRfHswNwDJcwK-65" target="gQG6ldMYRfHswNwDJcwK-22" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="gQG6ldMYRfHswNwDJcwK-22" value="Name server&lt;div&gt;(DNS)&lt;/div&gt;" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;fontColor=#000000;align=center;verticalAlign=middle;fontFamily=Helvetica;fontStyle=0;labelBackgroundColor=none;" parent="1" vertex="1">
