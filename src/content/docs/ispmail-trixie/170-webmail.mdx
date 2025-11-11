@@ -52,7 +52,7 @@ There are two directories dealing with virtual hosts:
 The actual file containing the configuration lives in _sites-available_. If that configuration should be active, then a
 symbolic link (symlink) is added to the _sites-enabled_ directory pointing to the file in the _sites-available_
 directory. That way you can switch sites on and off without deleting the actual configuration file. You can enable a
-site using the `a2enconf` (apache2 enable config) command or disable it using `a2disconf`.
+site using the `a2ensite` (apache2 enable config) command or disable it using `a2dissite`.
 
 </details>
 
