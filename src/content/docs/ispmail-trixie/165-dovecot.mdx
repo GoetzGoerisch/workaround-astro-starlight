@@ -113,7 +113,7 @@ to authenticate your users which is relevant later when we set up _relaying_.
 Earlier in this guide you created both a key and a certificate file to encrypt the communication with IMAPS and HTTPS
 between the users and your mail server. You need to tell Dovecot where to find these files. Also set
 [ssl=required](https://doc.dovecot.org/2.4.1/core/config/ssl.html#how-to-specify-when-ssl-tls-is-required) to prevent
-that someone sends their password without encryption. Again we will create a new file `99-ispmail-master.conf` to
+that someone sends their password without encryption. Again we will create a new file `99-ispmail-ssl.conf` to
 override the defaults.
 
 <Aside type="danger" title="Important">
