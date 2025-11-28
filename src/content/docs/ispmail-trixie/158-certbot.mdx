@@ -109,7 +109,17 @@ It is important that services that use the certificate load the new certificate 
 command will create a file `/etc/letsencrypt/cli.ini` that handles it:
 
 ```sh title="Run this on your server"
-echo > /etc/letsencrypt/cli.ini "post-hook = systemctl reload postfix dovecot apache2"
+cat > /etc/letsencrypt/cli.ini << 'EOF'
+# Restart services after renewing a certificate
+post-hook = systemctl reload postfix dovecot apache2
+
+# Because we are using logrotate for greater flexibility, disable the
+# internal certbot logrotation.
+max-log-backups = 0
+
+# Adjust interactive output regarding automated renewal
+preconfigured-renewal = True
+EOF
 ```
 
 Perfect. You won't have to worry about the certificate again.

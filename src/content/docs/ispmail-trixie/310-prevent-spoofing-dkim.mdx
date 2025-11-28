@@ -311,11 +311,11 @@ You could either just send an email from your mail client (or Roundcube) through
 address. Or you could use swaks. Use your own addresses and password of course:
 
 ```sh title="Run this on your server"
-swaks --server localhost:587
-    --from some.address@example.org
-    --to some.external.address@example.net
-    -tls
-    --auth-user some.address@example.org
+swaks --server localhost:587 \
+    --from some.address@example.org \
+    --to some.external.address@example.net \
+    -tls \
+    --auth-user some.address@example.org \
     --auth-password your_secreet_password
 ```
 
