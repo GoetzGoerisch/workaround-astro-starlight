@@ -8,6 +8,13 @@ import remarkSmartypants from "remark-smartypants";
 // https://astro.build/config
 export default defineConfig({
   site: "https://workaround.org",
+  redirects: {
+    "/ispmail-trxie/imap/": "/ispmail-trixie/imap/",
+    "/ispmail-trxie/anti-spoofing-dkim-spf": "/ispmail-trixie/anti-spoofing-dkim-spf",
+    "/ispmail-trxie/catch-all": "/ispmail-trixie/catch-all",
+    "/ispmail-trxie/quotas": "/ispmail-trixie/quotas",
+    "/ispmail-trxie/going-live": "/ispmail-trixie/going-live",
+  },
   integrations: [
     starlight({
       head: [
