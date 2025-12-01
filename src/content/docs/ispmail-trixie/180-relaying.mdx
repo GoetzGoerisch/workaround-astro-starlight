@@ -143,8 +143,12 @@ Please replace `mail.example.org` by the FQDN you chose.
 </Aside>
 
 ```sh title="Run this on your server"
-postconf smtp_tls_security_level=may
-postconf smtpd_tls_security_level=may
+postconf smtp_tls_security_level=encrypt
+postconf smtpd_tls_security_level=encrypt
+postconf smtp_tls_mandatory_protocols=">=TLSv1.2"
+postconf smtpd_tls_mandatory_protocols=">=TLSv1.2"
+postconf smtp_tls_mandatory_ciphers=high
+postconf smtpd_tls_mandatory_ciphers=high
 postconf smtpd_tls_cert_file=/etc/letsencrypt/live/mail.example.org/fullchain.pem
 postconf smtpd_tls_key_file=/etc/letsencrypt/live/mail.example.org/privkey.pem
 ```
@@ -152,11 +156,23 @@ postconf smtpd_tls_key_file=/etc/letsencrypt/live/mail.example.org/privkey.pem
 What it means:
 
 - **smtp_tls_security_level**: \
-  Allow encrypted _outgoing_ SMTP connections but do not enforce it.
+  Enforce encrypted _outgoing_ SMTP connections.
 - **smtpd_tls_security_level**: \
-  Allow encrypted _incoming_ SMTP connections but do not enforce it.
+  Enforce encrypted _incoming_ SMTP connections.
+- **smtp_tls_mandatory_protocols** / **smtpd_tls_mandatory_protocols**: \
+  Only allow recommended versions of [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security). Version 1.2 has been
+  introduced 2008. Version 1.3 is from 2018.
+- **smtp_tls_mandatory_ciphers** / **smtpd_tls_mandatory_ciphers**: \
+  The list of encryption algorithms that you allow for communnication. Default is _medium_.
 - **smtpd_tls_cert_file** and **smtpd_tls_key_file**: \
   Where to find the private key and certificate for encryption.
+
+<Aside type="tip" title="Losen the encryption?">
+  In rare cases you may fail to communicate with other computers because they only support older TLS versions (up to
+  1.1) or ciphers that are not considered secure nowadays. In that case you can remove the `smtpd_tls_security_level`,
+  `smtpd_tls_mandatory_protocols` and `smtpd_tls_mandatory_ciphers` settings from your `main.cf` file and fall back to
+  the relaxed security requirements.
+</Aside>
 
 Please note that configuration in `main.cf` applies to all Postfix services. So the above configuration enabled
 encryption for both server-to-server and human-to-server (`submission`) services. The `smtpd_sasl_auth_enable` will only
