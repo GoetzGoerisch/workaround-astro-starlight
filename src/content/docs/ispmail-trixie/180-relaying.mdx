@@ -277,6 +277,13 @@ If you want to allow that, create a new \*.cf file with a mapping query like thi
 
 </Aside>
 
+<Aside type="danger" title="Check your $mydestination">
+
+Please check the `mydestination` setting in your `main.cf` file. Make sure that it does not contain any domain name that
+you also use as one of your _virtual domains_. If in doubt just set it to `localhost`.
+
+</Aside>
+
 ## Test it
 
 ### No encryption, no authentication
