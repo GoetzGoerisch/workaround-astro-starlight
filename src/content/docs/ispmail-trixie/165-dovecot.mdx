@@ -113,8 +113,8 @@ to authenticate your users which is relevant later when we set up _relaying_.
 Earlier in this guide you created both a key and a certificate file to encrypt the communication with IMAPS and HTTPS
 between the users and your mail server. You need to tell Dovecot where to find these files. Also set
 [ssl=required](https://doc.dovecot.org/2.4.1/core/config/ssl.html#how-to-specify-when-ssl-tls-is-required) to prevent
-that someone sends their password without encryption. Again we will create a new file `99-ispmail-ssl.conf` to
-override the defaults.
+that someone sends their password without encryption. Again we will create a new file `99-ispmail-ssl.conf` to override
+the defaults.
 
 <Aside type="danger" title="Important">
 
@@ -177,6 +177,32 @@ chmod go= /etc/dovecot/conf.d/99-ispmail-sql.conf
 Dovecot can also read the path to a user's home directory and the user-ID and group-ID from the database. Our setup has
 a fixed schema for the home directory (`/var/vmail/DOMAIN/USER`) (as defined by `mail_home`) and the user and group are
 always `vmail` and `vmail`.
+
+### 99-ispmail-managesieve.conf
+
+Later, we will implement server-side automation using **Sieve** rules. By default, Dovecot exposes two TCP ports to the
+internet: 2000 and 4190. Port 2000 is deprecated anyway and can be safely disabled, while port 4190 is the one we will
+use. However, unless you have a compelling reason, it is recommended not to make this port publicly accessible. So let
+us restrict it to the _localhost_ interface:
+
+```sh title="Run this on your server"
+cat > /etc/dovecot/conf.d/99-ispmail-managesieve.conf << EOF
+service managesieve-login {
+  # Listen only on localhost
+  inet_listener sieve {
+    listen= 127.0.0.1
+    port = 4190
+  }
+
+  # Disable the deprecated listener
+  inet_listener sieve_deprecated {
+    port = 0
+  }
+}
+EOF
+```
+
+_(Thanks to Thomas Gauweiler for spotting that.)_
 
 ## Restart and test
 
