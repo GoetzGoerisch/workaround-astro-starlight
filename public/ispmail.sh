@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -ex
 #
 # Installer for ISPmail servers
 # Copyright © 2025 Christoph Haas <ispmail@christoph-haas.de>
@@ -752,6 +752,7 @@ pipe :copy "rspamd-learn-ham.sh";
 EOF
 
   # Compile the Sieve scripts
+  systemctl reload dovecot
   sievec /etc/dovecot/sieve/learn-spam.sieve 2>/dev/null
   sievec /etc/dovecot/sieve/learn-ham.sieve 2>/dev/null
 
