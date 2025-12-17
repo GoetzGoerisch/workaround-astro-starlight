@@ -1,4 +1,4 @@
-#!/bin/bash -ex
+#!/bin/bash -e
 #
 # Installer for ISPmail servers
 # Copyright © 2025 Christoph Haas <ispmail@christoph-haas.de>
