@@ -219,7 +219,7 @@ EOF
 chown root:postfix /etc/postfix/mariadb-email2email.cf
 chmod u=rw,g=r,o= /etc/postfix/mariadb-email2email.cf
 
-# Tell Postfix to use thi smapping
+# Tell Postfix to use this mapping
 postconf smtpd_sender_login_maps=mysql:/etc/postfix/mariadb-email2email.cf
 ```
 

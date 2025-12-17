@@ -23,7 +23,8 @@ server.
   limit is the size of your disk.
 - Have a **webmail** interface so users can access their emails securely from any location using a web browser.
 - Let your users fetch email using **IMAP** and send email through your servers using **SMTP**.
-- Add automatic cryptographic signatures using DKIM to outgoing emails to prove that you are the owner of your domain.
+- Add automatic cryptographic signatures using **DKIM** to outgoing emails to prove that you are the owner of your
+  domain.
 - Allow users to manage server-based **filter rules**. Distribute incoming emails to different folders. Forward copies.
   Or send out-of-office notifications.
 - Mitigate **brute force** attacks.
@@ -51,9 +52,10 @@ server.
 - An **internet domain** (or several) to receive emails for. You need to be able to set A, MX and TXT records for that
   domain. You should also be able to set PTR records for your IP address because some mail servers on the internet
   require you to have matching forward and reverse DNS records.
-- **Patience**. We will proceed slowly and after every step ensure that are still on track. Don’t hurry and skip parts
-  even if they appear confusing at first. If you get lost just submit your question at the bottom of any page throughout
-  this guide and help is on the way. Or join the [chat channel](https://riot.im/app/#/room/#ispmail:matrix.org).
+- **Patience**. We will proceed slowly and after every step ensure that you are still on track. Don’t hurry and skip
+  parts even if they appear confusing at first. If you get lost just submit your question at the bottom of any page
+  throughout this guide and help is on the way. Or join the
+  [chat channel](https://riot.im/app/#/room/#ispmail:matrix.org).
 
 ## What this is not about
 

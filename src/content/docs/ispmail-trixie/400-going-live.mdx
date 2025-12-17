@@ -36,6 +36,12 @@ ALTER USER 'mailserver'@'127.0.0.1' IDENTIFIED BY '${PW_MAILSERVER}';
 FLUSH PRIVILEGES;
 EOF
 
+# Delete example data
+mariadb <<EOF
+DELETE FROM virtual_domains where name='example.org';
+EOF
+
+
 # Print the passwords for us to write down
 echo "mailadmin password:  $PW_MAILADMIN"
 echo "mailserver password: $PW_MAILSERVER"
