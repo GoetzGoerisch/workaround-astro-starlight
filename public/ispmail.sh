@@ -517,7 +517,7 @@ EOF
      --auth-password summersun \
      --silent 3
 
-  if [[ $? -ne 24 ]]; then
+  if [[ $? -ne 0 ]]; then
     echo "❌ Relaying of proper email failed."
     exit 10
   fi
@@ -560,7 +560,7 @@ EOF
     --auth-user john@example.org \
     --auth-password summersun \
     --silent 3
-  if [[ $? -ne 24 ]]; then
+  if [[ $? -ne 0 ]]; then
     echo "❌ Relaying over submission with STARTTLS and auth failed."
     exit 10
   fi
@@ -576,7 +576,7 @@ EOF
     --auth-user john@example.org \
     --auth-password summersun \
     --silent 3
-  if [[ $? -ne 24 ]]; then
+  if [[ $? -ne 0 ]]; then
     echo "❌ Relaying over submissions with STARTTLS and auth failed."
     exit 10
   fi
