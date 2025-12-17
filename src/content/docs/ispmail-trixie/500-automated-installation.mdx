@@ -1,0 +1,31 @@
+---
+title: Automated installation
+lastUpdated: 2025-12-17
+slug: ispmail-trixie/automated-installation
+sidebar:
+  order: 500
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+I have spent an extra couple of days to provide you with a shell script that does all the steps of this guide
+automatically on a fresh Debian Trixie system. The previous Bookworm guide contained an Ansible playbook for that
+purpose. But although I know Ansible quite well, I have realized that it can make simple tasks very complicated. So I
+thought that a shell script is the simplest way.
+
+<Aside type="danger" title="I trust you">
+  You may be tempted to skip the entire guide and just download and run the installation script. I trust that you are
+  not doing that. Only use this script after you have set up at least one mail server while following this guide from
+  start to end. It is easy to use but it is meant for experienced users who want to install multiple mail servers.
+</Aside>
+
+To use the automated installer:
+
+```sh
+wget https://workaround.org/ispmail.sh
+chmod +x ispmail.sh
+./ispmail.sh -f example.org
+```
+
+Use your main FQDN instead of **example.org**. It will become the main host name for Roundcube, rspamd, SMTP, IMAP and
+will be taken as the common name for the Let's Encrypt certificate.
