@@ -34,7 +34,7 @@ jobs:
           git commit -m "Update dist"
 
           git push \
-            https://x-access-token:${{ secrets.FORGEJO_TOKEN }}@${{ github.server_url }}/${{ github.repository }} \
+            x-access-token:${{ secrets.FORGEJO_TOKEN }}@${{ github.server_url }}/${{ github.repository }} \
             temp:dist-${{ env.FORGEJO_REF_NAME }} \
             --force
 
