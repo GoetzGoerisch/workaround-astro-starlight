@@ -27,7 +27,7 @@ jobs:
           git config user.name "forgejo-actions[bot]"
           git config user.email "forgejo-actions[bot]@users.noreply.local"
 
-          git checkout --orphan dist-stage
+          git checkout --orphan temp
           git rm -rf .
 
           git add dist
@@ -35,7 +35,7 @@ jobs:
 
           git push \
             https://x-access-token:${{ secrets.FORGEJO_TOKEN }}@${{ github.server_url }}/${{ github.repository }} \
-            temp-build:dist-${{ env.FORGEJO_REF_NAME }} \
+            temp:dist-${{ env.FORGEJO_REF_NAME }} \
             --force
 
       # - name: Trigger deployment webhook
