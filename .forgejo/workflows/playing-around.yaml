@@ -7,14 +7,17 @@ jobs:
     runs-on: docker
     #environment: ${{ env.FORGEJO_REF_NAME }}
 
+    container:
+      image: node:22
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: https://code.forgejo.org/actions/setup-node@v4
-        with:
-          node-version: "22"
+      # - name: Setup Node.js
+      #   uses: https://code.forgejo.org/actions/setup-node@v4
+      #   with:
+      #     node-version: "22"
 
       - name: Cache node modules
         uses: actions/cache@v4
