@@ -126,10 +126,18 @@ email address as the user name. E.g. `john@example.org` and password `summersun`
 
 If the login fails, check `/var/log/roundcube/errors.log`.
 
+<Aside type="tip" title="Important">
+
+Before you get overly enthusiastic: you can't send emails from Roundcube yet. We will fix that now.
+
+</Aside>
+
 ## Plugins
 
-Roundcube comes with various plugins that you can offer your users. I suggest that you enable at least the **password**
-plugin so that your users can change their access password.
+Roundcube comes with various plugins that you can offer your users. I suggest that you enable at least
+
+- the **password** plugin so that your users can change their access password
+- the **managesieve** plugin so that your users can create server-based filtering rules
 
 Again edit the `/etc/roundcube/config.inc.php` file and look for the _plugins_ configuration. To enable the recommended
 plugins change it to:
@@ -141,8 +149,11 @@ $config['plugins'] = array(
 );
 ```
 
-Plugins are configured through files located in the `/etc/roundcube/plugins` directory. Let's quickly set up the
-password plugin:
+Plugins are configured through files located in the `/etc/roundcube/plugins` directory.
+
+### password
+
+Let's quickly set up the password plugin:
 
 ```sh title="Run this on your server"
 cat > /etc/roundcube/plugins/password/config.inc.php << 'EOF'
@@ -161,7 +172,7 @@ chown root:www-data /etc/roundcube/plugins/password/config.inc.php
 chmod u=rw,g=r,o= /etc/roundcube/plugins/password/config.inc.php
 ```
 
-Let’s briefly cover the meaning of those lines:
+What these settings mean:
 
 - `$config['password_driver'] = 'sql';`\
   Use SQL as a backend.
@@ -191,8 +202,32 @@ Try it. Log into Roundcube as `john@example.org` with password ‘summersun’. 
 Enter a new password twice. You should get a success message at the bottom right. Now logout and login with the new
 password. Does it work? Great.
 
-<Aside type="tip" title="Important">
+### managesieve
 
-Before you get overly enthusiastic: you can't send emails from Roundcube yet. We will fix that now.
+[Sieve](<https://en.wikipedia.org/wiki/Sieve_(mail_filtering_language)>) is a simple programming language to be used for
+server-side rules. Dovecot executes these rules every time a new email comes in. There are global rules that are
+executed for every email. And of course every user/mailbox can have its own rules. To manage sieve rules Dovecot offers
+the _managesieve_ interface that you enabled earlier. So we just need to tell Roundcube how to access it.
 
-</Aside>
+The configuration file for Roundcube’s _managesieve_ plugin is found at
+`/etc/roundcube/plugins/managesieve/config.inc.php`. But the defaults are fine so you do not need to change it.
+
+Sieve rules are stored in a special syntax on the server. This is an example that moves all incoming emails to the
+_test_ folder that have “test” in the subject:
+
+```
+require ["fileinto"];
+if header :contains "subject" "test"
+{
+  fileinto "INBOX/test";
+}
+```
+
+You do not need to learn this syntax though. Roundcube’s sieve rule editor is way more user-friendly.
+
+Try adding a sieve rule for `john@example.org` in Roundcube. That feature is located in Settings/Filters. You will find
+the machine-readable sieve code at `/var/vmail/example.org/john/sieve/roundcube.sieve`.
+
+The rule editor looks like this:
+
+![Roundcube's sieve rule editor](images/webmail-roundcube-sieve-editor.png)
