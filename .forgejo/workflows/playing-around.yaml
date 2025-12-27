@@ -48,7 +48,7 @@ jobs:
 
       - name: Trigger deployment webhook
         env:
-          DEPLOY_WEBHOOK: ${{ secrets.COOLIFY_DEPLOY_WEBHOOK_ }}
+          DEPLOY_WEBHOOK: ${{ secrets.COOLIFY_DEPLOY_WEBHOOK }}
           DEPLOY_TOKEN: ${{ secrets.COOLIFY_DEPLOY_TOKEN }}
         run: |
           if [ "${{ env.FORGEJO_REF_NAME }}" = "stage" ]; then
