@@ -14,11 +14,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # - name: Setup Node.js
-      #   uses: https://code.forgejo.org/actions/setup-node@v4
-      #   with:
-      #     node-version: "22"
-
       - name: Cache node modules
         uses: actions/cache@v4
         with:
@@ -49,10 +44,10 @@ jobs:
             temp:dist-${{ env.FORGEJO_REF_NAME }} \
             --force
 
-      # - name: Trigger deployment webhook
-      #   env:
-      #     DEPLOY_WEBHOOK: ${{ secrets.COOLIFY_STAGE_DEPLOY_WEBHOOK }}
-      #     DEPLOY_TOKEN: ${{ secrets.COOLIFY_STAGE_DEPLOY_TOKEN }}
-      #   run: |
-      #     curl -v "$DEPLOY_WEBHOOK" \
-      #       --header "Authorization: Bearer $DEPLOY_TOKEN"
+      - name: Trigger deployment webhook
+        env:
+          DEPLOY_WEBHOOK: ${{ secrets.COOLIFY_STAGE_DEPLOY_WEBHOOK }}
+          DEPLOY_TOKEN: ${{ secrets.COOLIFY_STAGE_DEPLOY_TOKEN }}
+        run: |
+          curl -v "$DEPLOY_WEBHOOK" \
+            --header "Authorization: Bearer $DEPLOY_TOKEN"
