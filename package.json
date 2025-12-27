@@ -17,12 +17,11 @@
     "@astrojs/starlight": "^0.35.2",
     "@splidejs/splide": "^4.1.4",
     "astro": "^5.13.2",
-    "astro-matomo": "^1.9.0",
     "astro-splide": "^2.0.0",
     "sharp": "^0.32.6",
     "typescript": "^5.9.2"
   },
- "engines": {
+  "engines": {
     "node": ">=22"
   }
 }

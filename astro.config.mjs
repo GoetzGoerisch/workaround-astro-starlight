@@ -2,7 +2,6 @@
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 import sitemap from "@astrojs/sitemap";
-import matomo from "astro-matomo";
 import remarkSmartypants from "remark-smartypants";
 
 // https://astro.build/config
@@ -72,18 +71,6 @@ export default defineConfig({
         replacesTitle: true,
       },
     }),
-    // https://github.com/felix-berlin/astro-matomo
-    // matomo({
-    //   enabled: import.meta.env.PROD, // Only load in production
-    //   host: "https://matomo.workaround.org/",
-    //   setCookieDomain: "*.workaround.org",
-    //   trackerUrl: "js/", // defaults to matomo.php
-    //   srcUrl: "js/", // defaults to matomo.js
-    //   siteId: 1,
-    //   heartBeatTimer: 5,
-    //   disableCookies: true,
-    //   debug: false,
-    // }),
     sitemap(),
   ],
 
