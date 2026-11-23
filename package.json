@@ -14,9 +14,9 @@
   "dependencies": {
     "@astrojs/check": "^0.9.4",
     "@astrojs/sitemap": "^3.5.0",
-    "@astrojs/starlight": "^0.35.2",
+    "@astrojs/starlight": "^0.43.1",
     "@splidejs/splide": "^4.1.4",
-    "astro": "^5.13.2",
+    "astro": "^7.4.13",
     "astro-splide": "^2.0.0",
     "sharp": "^0.32.6",
     "typescript": "^5.9.2"
